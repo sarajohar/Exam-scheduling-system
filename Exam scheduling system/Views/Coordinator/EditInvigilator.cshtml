@@ -1,0 +1,22 @@
+﻿@model EditInvigilatorViewModel
+
+<h2>Edit Invigilator</h2>
+
+<form asp-action="EditInvigilator" method="post">
+    <input type="hidden" asp-for="ReservationId" />
+
+    <p>Current Invigilator: @Model.CurrentInvigilator "</p>
+
+    <div class="form-group mt-4">
+        <label asp-for="NewInvigilator">Select Invigilator:</label>
+        <select asp-for="NewInvigilator" class="form-control">
+            <option value="">Select an Invigilator</option>
+            @foreach (var invigilator in Model.AvailableInvigilators)
+            {
+                <option value="@invigilator">@invigilator</option>
+            }
+        </select>
+    </div>
+
+    <button type="submit" class="btn btn-primary mt-4" >Update Invigilator</button>
+</form>

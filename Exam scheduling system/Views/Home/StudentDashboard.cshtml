@@ -1,0 +1,23 @@
+﻿@{
+    ViewData["Title"] = "StudentDashboard";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+
+<div class="container-fluid min-vh-100 d-flex align-items-center justify-content-center">
+    <div class="row w-100">
+     
+        <div class="col-md-6 offset-md-3">
+            <div class="d-flex flex-column align-items-center gap-3">
+                <a href="@Url.Action("SearchCourseByName","Student")" class="btn btn-light btn-lg border rounded-pill w-100">Search Course By Name</a>
+                <a href="@Url.Action("ViewExamsSchedule","Home")" class="btn btn-light btn-lg border rounded-pill w-100">View Exams Schedule</a>
+
+
+
+            </div>
+        </div>
+    </div>
+</div>
+
+

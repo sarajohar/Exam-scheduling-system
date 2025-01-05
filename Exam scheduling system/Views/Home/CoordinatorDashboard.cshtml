@@ -1,0 +1,27 @@
+﻿@{
+    ViewData["Title"] = "Coordinator Dashboard";
+}
+
+@if (ViewBag.Announcement != null)
+{
+    <div class="alert alert-warning text-center" style="font-size: 1.25rem;">
+        @ViewBag.Announcement
+    </div>
+}
+
+
+<div class="container-fluid min-vh-100 d-flex align-items-center justify-content-center">
+    <div class="row w-100">
+        
+        <div class="col-md-6 offset-md-3">
+            <div class="d-flex flex-column align-items-center gap-3">
+                <a href="@Url.Action("ReserveAnExam","Coordinator")" class="btn btn-light btn-lg border rounded-pill w-100">Reserve An Exam</a>
+                <a href="@Url.Action("ChooseInvigilator","Coordinator")" class="btn btn-light btn-lg border rounded-pill w-100">Choose Invigilator</a>
+                <a href="@Url.Action("ManageReservation","Coordinator")" class="btn btn-light btn-lg border rounded-pill w-100">Manage Reservations</a>
+                <a href="@Url.Action("ViewChangeRequests","Coordinator")" class="btn btn-light btn-lg border rounded-pill w-100">View Change Requests</a>
+                <a href="@Url.Action("ViewExcusesList","Coordinator")" class="btn btn-light btn-lg border rounded-pill w-100">View Excuses List</a>
+                <a href="@Url.Action("ViewExamsSchedule","Home")" class="btn btn-light btn-lg border rounded-pill w-100">View Exams Schedule</a>
+            </div>
+        </div>
+    </div>
+</div>

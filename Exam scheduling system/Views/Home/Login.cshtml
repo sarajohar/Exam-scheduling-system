@@ -1,0 +1,94 @@
+﻿@model ExamSchedulingSystem.Models.User
+@{
+    ViewData["HideHeader"] = true;
+    ViewData["Title"] = "Login";
+    var role = ViewBag.Role as string;
+}
+
+
+<div class="container-fluid min-vh-100 d-flex align-items-center justify-content-center">
+    <div class="row w-100">
+      
+        <div class="col-md-6 d-flex align-items-center justify-content-center">
+            <img src="/image/login.jpg" alt="Login Image" class="img-fluid">
+        </div>
+
+       
+        <div class="col-md-6 d-flex align-items-center justify-content-center">
+            <div class="card p-4 shadow-lg w-100" style="max-width: 400px;">
+                <h3 class="text-center mb-4">Login as @role</h3>
+
+                <form asp-action="Login" method="post">
+                   
+                    <input type="hidden" name="role" value="@role" />
+
+                  
+                    <div class="mb-3">
+                        <label asp-for="UserId" class="form-label">ID <span class="text-danger">*</span></label>
+                        <input asp-for="UserId" class="form-control" id="id" name="id" />
+                    </div>
+
+                  
+                    <div class="mb-3">
+                        <label asp-for="Password" class="form-label">Password <span class="text-danger">*</span></label>
+                        <input asp-for="Password" class="form-control" type="password" id="password" name="password" />
+                    </div>
+
+                    @if (!string.IsNullOrEmpty(ViewBag.ErrorMessage as string))
+                    {
+                        <div class="text-danger text-center mb-3">
+                            @ViewBag.ErrorMessage
+                        </div>
+                    }
+                  
+                    <div class="d-flex justify-content-between align-items-center mb-3">
+                        <a href="/Home/VerifyIdentity?role=@role" class="forgot-password-link">I forgot my password</a>
+                    </div>
+                    <button type="submit" class="btn btn-primary w-100">Login</button>
+                </form>
+
+                <div class="text-center mt-3">
+                    <p>Don't have an account? <a href="/Home/SignUp?role=@role" class="signup-link">Sign Up as @role</a></p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            const form = document.querySelector("form");
+            const userIdInput = document.getElementById("id");
+            const passwordInput = document.getElementById("password");
+
+            form.addEventListener("submit", function (event) {
+                let isValid = true;
+
+                
+
+              
+                if (!userIdInput.value.trim()) {
+                    const errorSpan = document.createElement("span");
+                    errorSpan.className = "text-danger";
+                    errorSpan.innerText = "ID  Is Required.";
+                    userIdInput.parentElement.appendChild(errorSpan);
+                    isValid = false;
+                }
+
+                if (!passwordInput.value.trim()) {
+                    const errorSpan = document.createElement("span");
+                    errorSpan.className = "text-danger";
+                    errorSpan.innerText = "Password Is Required.";
+                    passwordInput.parentElement.appendChild(errorSpan);
+                    isValid = false;
+                }
+
+               
+                if (!isValid) {
+                    event.preventDefault();
+                }
+            });
+        });
+    </script>
+}

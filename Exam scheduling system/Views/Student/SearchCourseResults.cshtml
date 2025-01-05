@@ -1,0 +1,40 @@
+﻿@model IEnumerable<dynamic>
+
+@{
+    ViewData["Title"] = "Search Results";
+}
+
+<h2>Search Results</h2>
+
+@if (!Model.Any())
+{
+    <p>No exams found for the specified course name.</p>
+}
+else
+{
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>Course Name</th>
+                <th>Exam Date</th>
+                <th>Start Time</th>
+                <th>End Time</th>
+                <th>Place</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var exam in Model)
+            {
+                <tr>
+                    <td>@exam.CourseName</td>
+                    <td>@exam.ExamDate.ToString("yyyy-MM-dd")</td>
+                    <td>@exam.StartTime</td>
+                    <td>@exam.EndTime</td>
+                    <td>@exam.Place</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+
+

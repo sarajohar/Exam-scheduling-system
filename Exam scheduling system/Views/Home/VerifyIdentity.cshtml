@@ -1,0 +1,23 @@
+﻿@{
+    ViewData["Title"] = "Verify Your Identity";
+}
+
+<div class="verify-container">
+    <h1>EXAM SCHEDULING SYSTEM</h1>
+
+    <h2>VERIFY YOUR IDENTITY</h2>
+    <p>We’ve sent an email to a***@@gmail.com</p>
+
+    <form asp-action="VerifyIdentity" method="post">
+        <div class="form-group">
+            <label for="code">Enter Code<span class="required">*</span></label>
+            <input type="text" id="code" name="verificationCode" required />
+        </div>
+
+        <button type="submit" class="continue-btn">Continue</button>
+    </form>
+
+    <p class="resend">Didn't receive code? <a href="#">Resend</a></p>
+</div>
+
+<link rel="stylesheet" type="text/css" href="~/css/verifyIdentity.css" />

@@ -1,0 +1,19 @@
+﻿@{
+    ViewData["Title"] = "Admin Dashboard";
+}
+
+
+<div class="container-fluid min-vh-100 d-flex align-items-center justify-content-center">
+    <div class="row w-100">
+      
+        <div class="col-md-6 offset-md-3">
+            <div class="d-flex flex-column align-items-center gap-3">
+                <a href="@Url.Action("AddUser","Admin")" class="btn btn-light btn-lg border rounded-pill w-100">Add User</a>
+                <a href="@Url.Action("AddCourse","Admin")" class="btn btn-light btn-lg border rounded-pill w-100">Add Course</a>
+                <a href="@Url.Action("AddExamPeriod","Admin")" class="btn btn-light btn-lg border rounded-pill w-100">Add Exam Period</a>
+                <a href="@Url.Action("AddClassRoom","Admin")" class="btn btn-light btn-lg border rounded-pill w-100">Add Class Room</a>
+                
+            </div>
+        </div>
+    </div>
+</div>

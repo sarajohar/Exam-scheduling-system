@@ -1,0 +1,47 @@
+﻿@model ExamSchedulingSystem.Models.CalendarViewModel
+@{
+    ViewData["Title"] = "Add Exam Periods";
+}
+
+<div class="container">
+    <h2>Add Exam Periods</h2>
+    @if (TempData["SuccessMessage"] != null)
+    {
+        <div class="alert alert-success text-center">
+            @TempData["SuccessMessage"]
+        </div>
+    }
+    <form asp-action="AddExamPeriod" method="post">
+        <h4>First Exam Period</h4>
+        <div class="mb-3">
+            <label for="FirstExamStartDate">Start Date:</label>
+            <input type="date" id="FirstExamStartDate" name="FirstExamStartDate" class="form-control" required />
+        </div>
+        <div class="mb-3">
+            <label for="FirstExamEndDate">End Date:</label>
+            <input type="date" id="FirstExamEndDate" name="FirstExamEndDate" class="form-control" required />
+        </div>
+
+        <h4>Second Exam Period</h4>
+        <div class="mb-3">
+            <label for="SecondExamStartDate">Start Date:</label>
+            <input type="date" id="SecondExamStartDate" name="SecondExamStartDate" class="form-control" required />
+        </div>
+        <div class="mb-3">
+            <label for="SecondExamEndDate">End Date:</label>
+            <input type="date" id="SecondExamEndDate" name="SecondExamEndDate" class="form-control" required />
+        </div>
+
+        <h4>Mid Exam Period</h4>
+        <div class="mb-3">
+            <label for="MidExamStartDate">Start Date:</label>
+            <input type="date" id="MidExamStartDate" name="MidExamStartDate" class="form-control" required />
+        </div>
+        <div class="mb-3">
+            <label for="MidExamEndDate">End Date:</label>
+            <input type="date" id="MidExamEndDate" name="MidExamEndDate" class="form-control" required />
+        </div>
+
+        <button type="submit" class="btn btn-primary">Save</button>
+    </form>
+</div>

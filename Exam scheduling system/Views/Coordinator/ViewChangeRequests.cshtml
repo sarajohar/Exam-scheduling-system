@@ -1,0 +1,48 @@
+﻿
+@{
+    ViewData["Title"] = "ViewChangeRequests";
+}
+
+@model List<ChangeRequestViewModel>
+
+<h2>Change Requests</h2>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>Teacher</th>
+            <th>Exam</th>
+            <th>Request</th>
+            <th>Exam Date</th>
+            <th>Time</th>
+            <th>Response</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var request in Model)
+        {
+            <tr>
+                <td>@request.TeacherName</td>
+                <td>@request.ExamName</td>
+                <td>@request.RequestText</td>
+                <td>@request.ExamDate.ToString("yyyy-MM-dd")</td>
+                <td>@request.StartTime - @request.EndTime</td>
+                <td>
+                    @if (request.IsAccepted == null)
+                    {
+                        <form asp-action="RespondToChangeRequest" method="post">
+                            <input type="hidden" name="RequestId" value="@request.RequestId" />
+                            <button type="submit" name="response" value="true" class="btn btn-success">Accept</button>
+                            <button type="submit" name="response" value="false" class="btn btn-danger">Reject</button>
+                        </form>
+                    }
+                    else
+                    {
+                        <span>@(request.IsAccepted.Value ? "Accepted" : "Rejected")</span>
+                    }
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+

@@ -1,0 +1,33 @@
+﻿
+@{
+    ViewData["Title"] = "ViewAssignedExams";
+}
+
+@model List<AssignedExamViewModel>
+
+<h2>Assigned Exams</h2>
+<table class="table">
+    <thead>
+        <tr>
+            <th>Exam Name</th>
+            <th>Date</th>
+            <th>Time</th>
+            <th>Coordinator</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var exam in Model)
+        {
+            <tr>
+                <td>@exam.ExamName</td>
+                <td>@exam.ExamDate.ToShortDateString()</td>
+                <td>@exam.StartTime.ToString(@"hh\:mm") - @exam.EndTime.ToString(@"hh\:mm")</td>
+                <td>@exam.CoordinatorName</td>
+                <td>
+                    <a asp-action="EnterExcuse" asp-route-reservationId="@exam.ReservationId" class="btn btn-warning">Enter Excuse</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

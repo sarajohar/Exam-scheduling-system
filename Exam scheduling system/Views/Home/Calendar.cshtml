@@ -1,0 +1,36 @@
+﻿@model List<ExamSchedulingSystem.Models.Calendar>
+
+@{
+    ViewData["Title"] = "Exam Calendar";
+}
+
+<div class="container mt-4">
+    <h2 class="text-center">Exam Calendar</h2>
+
+    @if (Model == null || !Model.Any())
+    {
+        <p class="text-center">No exam periods found.</p>
+    }
+    else
+    {
+        <table class="table table-bordered mt-5">
+            <thead class="thead-dark">
+                <tr>
+                    <th>Exam Type</th>
+                    <th>Start Date</th>
+                    <th>End Date</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var calendar in Model)
+                {
+                    <tr>
+                        <td>@calendar.ExamType</td>
+                        <td>@calendar.StartDate.ToString("yyyy-MM-dd")</td>
+                        <td>@calendar.EndDate.ToString("yyyy-MM-dd")</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    }
+</div>

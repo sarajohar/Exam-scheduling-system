@@ -1,0 +1,44 @@
+﻿@model ExamSchedulingSystem.Models.User
+@{
+    ViewData["HideHeader"] = true;
+    ViewData["Title"] = "Faculty Dashboard";
+}
+
+
+
+
+<div class="container-fluid min-vh-100 d-flex align-items-center justify-content-center">
+    <div class="row w-100">
+        <div class="col-md-6 offset-md-3 d-flex flex-column align-items-center">
+            <h3 class="text-center mb-3">SELECT YOUR ROLE:</h3>
+
+           
+            <form asp-action="FacultyDashboardd" method="post" class="w-100" style="max-width: 400px;">
+                <div class="d-grid gap-3 mt-3">
+                    <input type="hidden" name="selectedFacultyRole" value="Coordinator" />
+                    <button type="submit" name="role" value="Coordinator" class="btn btn-lg btn-light border rounded-pill mb-3">
+                        COORDINATOR
+                    </button>
+                </div>
+            </form>
+
+            <form asp-action="FacultyDashboardd" method="post" class="w-100" style="max-width: 400px;">
+                <div class="d-grid gap-3 mt-3">
+                    <input type="hidden" name="selectedFacultyRole" value="Teacher" />
+                    <button type="submit" name="role" value="Teacher" class="btn btn-lg btn-light border rounded-pill mb-3">
+                        TEACHER
+                    </button>
+                </div>
+            </form>
+
+            <form asp-action="FacultyDashboardd" method="post" class="w-100" style="max-width: 400px;">
+                <div class="d-grid gap-3 mt-3">
+                    <input type="hidden" name="selectedFacultyRole" value="Invigilator" />
+                    <button type="submit" name="role" value="Invigilator" class="btn btn-lg btn-light border rounded-pill mb-3">
+                        INVIGILATOR
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

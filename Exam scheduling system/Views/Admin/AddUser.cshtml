@@ -1,0 +1,72 @@
+﻿@model UserViewModel
+@{
+    ViewData["Title"] = "AddUser";
+}
+
+
+<div class="container">
+    <h2>Add User</h2>
+    @if (TempData["SuccessMessage"] != null)
+    {
+        <div class="alert alert-success text-center">
+            @TempData["SuccessMessage"]
+        </div>
+    }
+    <form asp-action="AddUser" method="post" >
+        <div class="form-group">
+            <label asp-for="UserId"></label>
+            <input asp-for="UserId" class="form-control" />
+            <span asp-validation-for="UserId" class="text-danger"></span>
+        </div>
+
+        <div class="form-group">
+            <label asp-for="Name"></label>
+            <input asp-for="Name" class="form-control" />
+            <span asp-validation-for="Name" class="text-danger"></span>
+        </div>
+
+        <div class="form-group">
+            <label asp-for="Email"></label>
+            <input asp-for="Email" class="form-control" />
+            <span asp-validation-for="Email" class="text-danger"></span>
+        </div>
+
+        <div class="form-group">
+            <label asp-for="Password"></label>
+            <input asp-for="Password" type="password" class="form-control" />
+            <span asp-validation-for="Password" class="text-danger"></span>
+        </div>
+
+        <div class="form-group">
+            <label asp-for="Role"></label>
+            <select asp-for="Role" class="form-control">
+                <option value="Admin">Admin</option>
+                <option value="Faculty">Faculty</option>
+                
+            </select>
+            <span asp-validation-for="Role" class="text-danger"></span>
+        </div>
+
+        <div class="form-group">
+            <label asp-for="FacultyRole"></label>
+            <select asp-for="FacultyRole" class="form-control">
+                <option value="">None</option>
+                <option value="Coordinator">Coordinator</option>
+                <option value="Invigilator">Invigilator</option>
+                <option value="Teacher">Teacher</option>
+            </select>
+            <span asp-validation-for="FacultyRole" class="text-danger"></span>
+        </div>
+
+        <button type="submit" class="btn btn-primary mt-4">Add User</button>
+    </form>
+</div>
+@section Scripts {
+    <script>
+        $(document).ready(function () {
+           
+            $('input[type="text"], input[type="email"], input[type="password"]').val('');
+            $('select').val('');
+        });
+    </script>
+}

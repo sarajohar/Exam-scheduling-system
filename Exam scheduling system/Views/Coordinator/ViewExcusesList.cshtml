@@ -1,0 +1,41 @@
+﻿@model List<ExcuseViewModel>
+
+<h2>Excuse Requests</h2>
+<table class="table">
+    <thead>
+        <tr>
+            <th>Exam Name</th>
+            <th>Invigilator</th>
+            <th>Excuse</th>
+            <th>Exam Date</th>
+            <th>Time</th>
+            <th>Response</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var excuse in Model)
+        {
+            <tr>
+                <td>@excuse.ExamName</td>
+                <td>@excuse.InvigilatorName</td>
+                <td>@excuse.ExcuseText</td>
+                <td>@excuse.ExamDate.ToShortDateString()</td>
+                <td>@excuse.StartTime.ToString(@"hh\:mm") - @excuse.EndTime.ToString(@"hh\:mm")</td>
+                <td>
+                    @if (excuse.Status == "Pending")
+                    {
+                        <form asp-action="RespondToExcuse" method="post">
+                            <input type="hidden" name="excuseId" value="@excuse.ExcuseId" />
+                            <button type="submit" name="isAccepted" value="true" class="btn btn-success">Accept</button>
+                            <button type="submit" name="isAccepted" value="false" class="btn btn-danger">Reject</button>
+                        </form>
+                    }
+                    else
+                    {
+                        <span>@excuse.Status</span>
+                    }
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

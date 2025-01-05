@@ -1,0 +1,26 @@
+﻿
+@{
+    ViewData["Title"] = "TeacherDashboard";
+}
+
+
+
+<div class="container-fluid min-vh-100 d-flex align-items-center justify-content-center">
+    <div class="row w-100">
+      
+        <div class="col-md-6 offset-md-3">
+            <div class="d-flex flex-column align-items-center gap-3">
+                <a href="@Url.Action("RequestChange","Teacher")" class="btn btn-light btn-lg border rounded-pill w-100">Request Change</a>
+                <a href="@Url.Action("ManageReservations","Teacher")" class="btn btn-light btn-lg border rounded-pill w-100">Manage Reservation</a>
+                <a href="@Url.Action("ViewExamsSchedule","Home")" class="btn btn-light btn-lg border rounded-pill w-100">View Exams Schedule</a>
+
+
+
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+ 

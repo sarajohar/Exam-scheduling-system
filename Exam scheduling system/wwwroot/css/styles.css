@@ -1,0 +1,46 @@
+﻿
+body {
+    background-image: url('/image/backgrounds.jpg');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;*/
+   /*/  Semi-transparent overlay using rgba (50% opacity black) 
+    background-color: rgba(0, 0, 0, 0.5);  Adjust the last value for transparency 
+    background-blend-mode: overlay;  Overlay blends the color and image 
+     Optional: Set height and width 
+     Full height of the viewport */
+
+    width: 100%;
+}
+
+h2 {
+    margin-bottom: 30px;
+    margin-top: 0px;
+    font-size: large;
+}
+
+h1 {
+    margin-top: 10px;
+    margin-bottom: 30px;
+}
+
+.container {
+    color: white;
+    padding-top: 5px;
+}
+
+.login-options {
+    margin-top: 50px;
+    margin-bottom: 50px;
+    display: flex;
+    justify-content: center;  Centers horizontally 
+    align-items: center;
+}
+
+.login-buttons a {
+    justify-content: center;  Centers horizontally 
+    align-items: center;
+    display: block;
+    margin: 20px 0;
+    width: 200px;
+    padding: 10px;

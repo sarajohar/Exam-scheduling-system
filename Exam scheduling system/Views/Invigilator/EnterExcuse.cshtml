@@ -1,0 +1,70 @@
+﻿@{
+    ViewData["Title"] = "Enter Excuse";
+}
+
+@model EnterExcuseViewModel
+
+<div class="container mt-4">
+    <h2 class="text-center mb-4">Enter Excuse</h2>
+
+    <div class="card shadow-sm mb-4">
+        <div class="card-body">
+            <h5 class="card-title text-primary">Reservation Details</h5>
+            <div class="row mb-3">
+               
+            </div>
+
+            <form asp-action="EnterExcuse" method="post">
+                <input type="hidden" asp-for="ReservationId" />
+
+                <div class="form-group">
+                    <label asp-for="ExcuseText" class="form-label"><strong>Excuse:</strong></label>
+                    <textarea asp-for="ExcuseText" class="form-control" rows="4" placeholder="Enter your excuse" required></textarea>
+                </div>
+
+                <button type="submit" class="btn btn-primary mt-3">Submit Excuse</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Excuse History Table -->
+    <div class="card shadow-sm">
+        <div class="card-body">
+            <h5 class="card-title text-primary">Excuse History</h5>
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th>Exam Name</th>
+                        <th>Excuse</th>
+                        <th>Exam Date</th>
+                        <th>Time</th>
+                        <th>Status</th>
+                        <th>Coordinator Name</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @if (Model.ExcuseHistory != null && Model.ExcuseHistory.Any())
+                    {
+                        foreach (var excuse in Model.ExcuseHistory)
+                        {
+                            <tr>
+                                <td>@excuse.ExamName</td>
+                                <td>@excuse.ExcuseText</td>
+                                <td>@excuse.ExamDate.ToString("yyyy-MM-dd")</td>
+                                <td>@excuse.StartTime.ToString(@"hh\:mm") - @excuse.EndTime.ToString(@"hh\:mm")</td>
+                                <td>@excuse.Status</td>
+                                <td>@excuse.CoordinatorName</td>
+                            </tr>
+                        }
+                    }
+                    else
+                    {
+                        <tr>
+                            <td colspan="6" class="text-center">No excuses found.</td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

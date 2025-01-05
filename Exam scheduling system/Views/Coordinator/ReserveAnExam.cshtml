@@ -1,0 +1,130 @@
+﻿@model ReserveExamViewModel
+@{
+    ViewData["Title"] = "ReserveAnExam";
+}
+
+
+<div class="container">
+    <h2>Reserve an Exam</h2>
+    <form asp-action="ReserveAnExam"method="post">
+        <div class="mb-3">
+            <label asp-for="SelectedCourseId">Select Course:</label>
+            <select asp-for="SelectedCourseId" class="form-select" required>
+                <option value="">Select a Course</option>
+                @foreach (var course in ViewBag.Courses)
+                {
+                    <option value="@course.CourseId">@course.CourseName</option>
+                }
+            </select>
+        </div>
+
+        <div class="mb-3">
+            <label asp-for="SelectedExamType">Exam Type:</label>
+            <select asp-for="SelectedExamType" class="form-select" required>
+                <option value="">Select Exam Type</option>
+                <option value="First">First</option>
+                <option value="Second">Second</option>
+                <option value="Mid">Mid</option>
+            </select>
+        </div>
+
+        <div class="mb-3">
+            <label asp-for="SelectedDate">Date:</label>
+            <input asp-for="SelectedDate" type="date" class="form-control" required>
+        </div>
+
+        <div class="mb-3">
+            <label asp-for="SelectedTimeSlot">Available Time Slot:</label>
+            <select asp-for="SelectedTimeSlot" class="form-select" required>
+                <option value="">Select a Time Slot</option>
+            </select>
+        </div>
+
+        <div class="mb-3">
+            <label asp-for="SelectedRoomId">Available Room:</label>
+            <select asp-for="SelectedRoomId" class="form-select" required>
+                <option value="">Select a Room</option>
+            </select>
+        </div>
+
+        <button type="submit" class="btn btn-primary">Confirm Reservation</button>
+    </form>
+</div>
+
+@section Scripts {
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            function setDateRestrictions(data) {
+                // Get today's date in the format yyyy-MM-dd
+                const today = new Date().toISOString().split('T')[0];
+
+                // Determine the effective min date (either today or the start date, whichever is later)
+                const effectiveMinDate = today > data.startDate ? today : data.startDate;
+
+                // Set min and max attributes
+                $('#SelectedDate').attr('min', effectiveMinDate);
+                $('#SelectedDate').attr('max', data.endDate);
+
+                // Ensure the selected date is within the range
+                const selectedDate = $('#SelectedDate').val();
+                if (selectedDate && (selectedDate < effectiveMinDate || selectedDate > data.endDate)) {
+                    $('#SelectedDate').val(''); // Clear invalid date
+                }
+
+                console.log("Restriction applied: Min =", effectiveMinDate, "Max =", data.endDate);
+            }
+
+            $('#SelectedExamType').change(function () {
+                var examType = $(this).val();
+                if (examType) {
+                    $.getJSON('/Coordinator/GetExamPeriod', { examType: examType }, function (data) {
+                        if (data) {
+                            setDateRestrictions(data);
+                        } else {
+                            alert("No exam period found for the selected exam type.");
+                            $('#SelectedDate').removeAttr('min').removeAttr('max');
+                        }
+                    });
+                } else {
+                    $('#SelectedDate').removeAttr('min').removeAttr('max').val('');
+                }
+            });
+            // Load time slots based on selected date and course
+            $('#SelectedDate, #SelectedCourseId').change(function () {
+                var selectedDate = $('#SelectedDate').val();
+                var courseId = $('#SelectedCourseId').val();
+                if (selectedDate && courseId) {
+                    $.getJSON('/Coordinator/GetAvailableTimeSlots', { selectedDate: selectedDate, courseId: courseId }, function (data) {
+                        $('#SelectedTimeSlot').empty().append('<option value="">Select a Time Slot</option>');
+                        $.each(data, function (i, item) {
+                            $('#SelectedTimeSlot').append($('<option>', {
+                                value: `${item.startTime}-${item.endTime}`,
+                                text: item.timeRange
+                            }));
+                        });
+                    });
+                }
+            });
+
+            // Load rooms based on selected time slot
+            $('#SelectedTimeSlot').change(function () {
+                var selectedDate = $('#SelectedDate').val();
+                var selectedTimeSlot = $(this).val();
+                console.log("Selected time slot:", selectedTimeSlot);
+                var times = selectedTimeSlot.split('-');
+                console.log("Parsed times:", times[0], times[1]);
+
+                if (times.length === 2) {
+                    $.getJSON('/Coordinator/GetAvailableRooms', { selectedDate: selectedDate, startTime: times[0].trim(), endTime: times[1].trim() }, function (data) {
+                        $('#SelectedRoomId').empty().append('<option value="">Select a Room</option>');
+                        $.each(data, function (i, item) {
+                            $('#SelectedRoomId').append($('<option>', { value: item.roomId, text: item.roomId + " (Capacity: " + item.capacity + ")" }));
+                        });
+                    });
+                }
+            });
+        });
+    </script>
+
+}

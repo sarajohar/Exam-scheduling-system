@@ -1,0 +1,57 @@
+﻿@{
+    ViewData["Title"] = "Sign Up";
+}
+
+<div class="signup-container">
+    <h1>EXAM SCHEDULING SYSTEM</h1>
+
+    <div class="signup-content">
+        <!-- Left side: Image -->
+        <div class="signup-image">
+            <img src="@Url.Content("~/image/login.jpg   ")" alt="" Sign Up Image"" />
+        </div>
+
+        <!-- Right side: Form -->
+        <div class="signup-form">
+            <h2>SIGN UP</h2>
+
+            <form asp-action="SignUp" method="post">
+                <div class="form-group">
+                    <label for="name">Name<span class="required">*</span></label>
+                    <input type="text" id="name" name="name" required />
+                </div>
+
+                <div class="form-group">
+                    <label for="email">Email<span class="required">*</span></label>
+                    <input type="email" id="email" name="email" required />
+                </div>
+
+                <div class="form-group">
+                    <label for="id">ID<span class="required">*</span></label>
+                    <input type="text" id="id" name="id" required />
+                </div>
+
+                <div class="form-group">
+                    <label for="password">Password<span class="required">*</span></label>
+                    <input type="password" id="password" name="password" required />
+                    <span class="password-eye" onclick="togglePasswordVisibility()">👁</span>
+                </div>
+
+                <div class="form-group">
+                    <label for="confirmPassword">Confirm Password<span class="required">*</span></label>
+                    <input type="password" id="confirmPassword" name="confirmPassword" required />
+                    <span class="password-eye" onclick="togglePasswordVisibility()">👁</span>
+                </div>
+
+                <button type="submit" class="signup-btn">Sign Up</button>
+            </form>
+
+            @if (!string.IsNullOrEmpty(ViewData["ErrorMessage"] as string))
+            {
+                <div class="error-message">@ViewData["ErrorMessage"]</div>
+            }
+        </div>
+    </div>
+</div>
+
+<link rel="stylesheet" type="text/css" href="~/css/signup.css" />

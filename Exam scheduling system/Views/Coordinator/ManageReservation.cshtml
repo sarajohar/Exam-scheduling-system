@@ -1,0 +1,38 @@
+﻿@model List<ExamSchedulingSystem.Models.ExamReservation>
+
+
+@{
+    ViewData["Title"] = "Manage Reservations";
+}
+
+<h2>Manage Reservations</h2>
+
+<table class="table mt-4">
+    <thead>
+        <tr>
+            <th>Course Name</th>
+            <th>Exam Date</th>
+            <th>Time</th>
+            <th>Room</th>
+            <th>Invigilator</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var reservation in Model)
+        {
+            <tr>
+                <td>@reservation.CourseName</td>
+                <td>@reservation.ExamDate.ToShortDateString()</td>
+                <td>@reservation.StartTime - @reservation.EndTime</td>
+                <td>@reservation.RoomId</td>
+                <td>@reservation.InvigilatorName </td>
+                <td>
+                    <a asp-action="EditReservation" asp-route-reservationId="@reservation.ReservationId" class="btn btn-sm btn-primary">Edit</a>
+                    <a asp-action="DeleteReservation" asp-route-id="@reservation.ReservationId" class="btn btn-sm btn-danger" onclick="return confirm('Are you sure you want to delete this reservation?');">Delete</a>
+                    <a asp-action="EditInvigilator" asp-route-id="@reservation.ReservationId" class="btn btn-sm btn-secondary">Edit Invigilator</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

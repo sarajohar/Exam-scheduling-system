@@ -1,0 +1,82 @@
+﻿@{
+    ViewData["Title"] = "Request Change";
+}
+
+@model RequestChangeViewModel
+
+<div class="container mt-4">
+    <h2 class="text-center mb-4">Request Change</h2>
+
+    <div class="card shadow-sm mb-4">
+        <div class="card-body">
+            <h5 class="card-title text-primary">Exam Details</h5>
+            <div class="row mb-3">
+                <div class="col-md-6">
+                    <p><strong>Exam Name:</strong> @Model.ExamName</p>
+                    <p><strong>Exam Date:</strong> @Model.ExamDate.ToString()</p>
+                </div>
+                <div class="col-md-6">
+                    <p><strong>Start Time:</strong> @Model.StartTime.ToString()</p>
+                    <p><strong>End Time:</strong> @Model.EndTime.ToString()</p>
+                </div>
+                <div class="col-md-12">
+                    <p><strong>Room:</strong> @Model.Room</p>
+                </div>
+            </div>
+
+            <form asp-action="SubmitChangeRequest" method="post">
+                <input type="hidden" asp-for="ReservationId" />
+
+                <div class="form-group">
+                    <label asp-for="RequestText" class="form-label"><strong>Requested Change:</strong></label>
+                    <textarea asp-for="RequestText" class="form-control" rows="4" placeholder="Enter your requested change" required></textarea>
+                </div>
+
+                <button type="submit" class="btn btn-primary mt-3">Submit Request</button>
+            </form>
+        </div>
+    </div>
+
+  
+    <div class="card shadow-sm">
+        <div class="card-body">
+            <h5 class="card-title text-primary">Change Request History</h5>
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th>Exam</th>
+                        <th>Request</th>
+                        <th>Exam Date</th>
+                        <th>Time</th>
+                        <th>Status</th>
+                        <th>Coordinator Name</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @if (Model.RequestHistory != null && Model.RequestHistory.Any())
+                    {
+                        foreach (var request in Model.RequestHistory)
+                        {
+                            <tr>
+                                <td>@request.ExamName</td>
+                                <td>@request.RequestText</td>
+                                <td>@request.ExamDate.ToString("yyyy-MM-dd")</td>
+                                <td>@request.StartTime.ToString(@"hh\:mm") - @request.EndTime.ToString(@"hh\:mm")</td>
+                                <td>@request.Status</td>
+                                <td>@request.CoordinatorName</td>
+                            </tr>
+                        }
+                    }
+                    else
+                    {
+                        <tr>
+                            <td colspan="6" class="text-center">No change requests found.</td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+

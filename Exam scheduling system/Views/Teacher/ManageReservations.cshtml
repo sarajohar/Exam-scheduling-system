@@ -1,0 +1,52 @@
+﻿
+@{
+    ViewData["Title"] = "ManageReservations";
+}
+
+@model List<ExamReservation>
+
+<h2>Manage Reservations</h2>
+
+@if (Model == null || !Model.Any())
+{
+    <p>No reservations available to manage.</p>
+}
+else
+{
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Course Name</th>
+                <th>Exam Date</th>
+                <th>Time</th>
+                <th>Room</th>
+                <th>Coordinator</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var reservation in Model)
+            {
+                if (reservation != null)
+                {
+                    <tr>
+                        <td>@reservation.CourseName</td>
+                        <td>@reservation.ExamDate.ToString("yyyy-MM-dd")</td>
+                        <td>@reservation.StartTime.ToString(@"hh\:mm") - @reservation.EndTime.ToString(@"hh\:mm")</td>
+                        <td>@reservation.RoomId</td>
+                        <td>@reservation.CoordinatorId</td>
+                        <td>
+                            <a href="@Url.Action("EditReservation", "Teacher", new { reservationId = reservation.ReservationId })" class="btn btn-primary">Edit</a>
+                        </td>
+                    </tr>
+                }
+                else
+                {
+                    <tr>
+                        <td colspan="6" class="text-center">Invalid reservation data.</td>
+                    </tr>
+                }
+            }
+        </tbody>
+    </table>
+}

@@ -1,0 +1,66 @@
+﻿@{
+    ViewData["Title"] = "Choose Invigilator";
+}
+
+<h2>Choose Invigilator</h2>
+
+<div class="form-group">
+    <label for="reservationSelect">Select Reservation:</label>
+    <select id="reservationSelect" class="form-control">
+        <option value="">Select a Reservation</option>
+        @foreach (var reservation in ViewBag.Reservations)
+        {
+            <option value="@reservation.ReservationId">
+                Course: @reservation.CourseName | Date: @reservation.ExamDate.ToShortDateString() |
+                Time: @reservation.StartTime - @reservation.EndTime | Room: @reservation.RoomId
+            </option>
+        }
+    </select>
+</div>
+
+<div class="form-group mt-3">
+    <label for="invigilatorSelect">Select Invigilator:</label>
+    <select id="invigilatorSelect" class="form-control">
+        <option value="">Select an Invigilator</option>
+    </select>
+</div>
+
+<button id="confirmButton" class="btn btn-primary mt-5">Confirm Invigilator</button>
+
+@section Scripts {
+    <script>
+        $(document).ready(function () {
+            $('#reservationSelect').change(function () {
+                var reservationId = $(this).val();
+                if (reservationId) {
+                    $.getJSON('/Coordinator/GetAvailableInvigilators', { reservationId: reservationId }, function (data) {
+                        $('#invigilatorSelect').empty().append('<option value="">Select an Invigilator</option>');
+                        $.each(data, function (i, item) {
+                            $('#invigilatorSelect').append($('<option>', { value: item, text: item }));
+                        });
+                    });
+                } else {
+                    $('#invigilatorSelect').empty().append('<option value="">Select an Invigilator</option>');
+                }
+            });
+
+            $('#confirmButton').click(function () {
+                var reservationId = $('#reservationSelect').val();
+                var invigilatorName = $('#invigilatorSelect').val();
+                if (reservationId && invigilatorName) {
+                    $.post('/Coordinator/ChooseInvigilator', { reservationId: reservationId, invigilatorName: invigilatorName }, function (data) {
+                        if (data.success) {
+                            alert(data.message);
+                            location.reload(); 
+                        } else {
+                            alert(data.message);
+                        }
+                    });
+                } else {
+                    alert("Please select both a reservation and an invigilator.");
+                }
+            });
+        });
+    </script>
+}
+
